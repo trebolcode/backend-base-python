@@ -1,14 +1,18 @@
+from typing import Optional
 from fastapi import APIRouter, status
 
 
-trebolcode = APIRouter()
+router = APIRouter(tags=["Welcome"])
 
 
-@trebolcode.get(
+@router.get(
     path="/welcome",
     status_code=status.HTTP_200_OK,
-    tags=["Welcome"],
     summary="Return a message"
 )
-def welcome():
-    return {"message": "Welcome to TrebolCode!"}
+def welcome(name: Optional[str] = None):
+
+    if name is None:
+        return {"message": f"Welcome to TrebolCode!"}
+    else:
+        return {"message": f"Welcome to TrebolCode {name}!"}
