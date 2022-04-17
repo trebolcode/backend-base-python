@@ -1,6 +1,9 @@
 from fastapi import FastAPI
-from app.routes.welcome import trebolcode
 from fastapi.middleware.cors import CORSMiddleware
+
+# Routes:
+from app.routes import welcome
+from app.routes import items
 
 
 def get_application():
@@ -8,7 +11,8 @@ def get_application():
     app = FastAPI(
         title="Backend Basic Python",
         description="Backend Basic Python",
-        docs_url="/"
+        docs_url="/",
+        version="0.2.0"
     )
 
     origins = ["*"]
@@ -21,7 +25,8 @@ def get_application():
         allow_headers=["*"]
     )
 
-    app.include_router(trebolcode)
+    app.include_router(welcome.router)
+    app.include_router(items.router)
 
     return app
 
